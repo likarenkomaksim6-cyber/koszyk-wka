@@ -19,10 +19,6 @@ header{
     padding:40px 20px;
 }
 
-h1{
-    font-size:3rem;
-}
-
 .card{
     background:white;
     color:#333;
@@ -32,41 +28,17 @@ h1{
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-button{
-    background:#ff8c00;
+.creator-code{
+    position:fixed;
+    bottom:10px;
+    right:10px;
+    background:rgba(0,0,0,0.75);
     color:white;
-    border:none;
-    padding:12px 20px;
+    padding:8px 12px;
     border-radius:10px;
-    cursor:pointer;
-    margin:5px;
-    font-size:16px;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-.score{
-    text-align:center;
-    font-size:2rem;
-    margin:15px 0;
-}
-
-.fact{
-    font-size:18px;
-    margin-top:10px;
-}
-
-.quiz button{
-    display:block;
-    width:100%;
-    margin-top:10px;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
+    font-size:14px;
+    font-weight:bold;
+    z-index:9999;
 }
 </style>
 </head>
@@ -78,36 +50,26 @@ footer{
 </header>
 
 <div class="card">
+    <h2>📖 Historia koszykówki</h2>
+    <p>
+        Koszykówka została wynaleziona przez Jamesa Naismitha w 1891 roku.
+        Obecnie jest jednym z najpopularniejszych sportów na świecie.
+    </p>
+</div>
+
+<div class="card">
     <h2>🏆 Licznik punktów</h2>
+    <h1 id="score">0</h1>
 
-    <div class="score" id="score">
-        0
-    </div>
-
-    <button onclick="addPoints(1)">+1 punkt</button>
-    <button onclick="addPoints(2)">+2 punkty</button>
-    <button onclick="addPoints(3)">+3 punkty</button>
+    <button onclick="addPoints(1)">+1</button>
+    <button onclick="addPoints(2)">+2</button>
+    <button onclick="addPoints(3)">+3</button>
     <button onclick="resetScore()">Reset</button>
 </div>
 
 <div class="card">
-    <h2>📚 Ciekawostka o koszykówce</h2>
-
-    <p class="fact" id="fact">
-        Kliknij przycisk poniżej.
-    </p>
-
-    <button onclick="randomFact()">
-        Pokaż ciekawostkę
-    </button>
-</div>
-
-<div class="card quiz">
     <h2>🎯 Quiz</h2>
-
-    <p id="question">
-        Ile graczy jednej drużyny znajduje się na boisku?
-    </p>
+    <p>Ilu zawodników jednej drużyny gra na boisku?</p>
 
     <button onclick="checkAnswer(3)">3</button>
     <button onclick="checkAnswer(5)">5</button>
@@ -116,23 +78,11 @@ footer{
     <p id="result"></p>
 </div>
 
-<div class="card">
-    <h2>⭐ Najbardziej znani koszykarze</h2>
-
-    <ul>
-        <li>Michael Jordan</li>
-        <li>LeBron James</li>
-        <li>Kobe Bryant</li>
-        <li>Stephen Curry</li>
-    </ul>
+<div class="creator-code">
+    🎮 Kod autora Fortnite: 1MMS
 </div>
 
-<footer>
-    🏀 Projekt szkolny 2026
-</footer>
-
 <script>
-
 let score = 0;
 
 function addPoints(points){
@@ -145,23 +95,7 @@ function resetScore(){
     document.getElementById("score").textContent = score;
 }
 
-const facts = [
-    "Koszykówkę wynalazł James Naismith w 1891 roku.",
-    "Wysokość kosza wynosi 3,05 metra.",
-    "NBA to najsłynniejsza liga koszykarska świata.",
-    "W jednej drużynie na boisku gra 5 zawodników.",
-    "Pierwsze kosze były wykonane z koszy na brzoskwinie."
-];
-
-function randomFact(){
-    const fact =
-    facts[Math.floor(Math.random()*facts.length)];
-
-    document.getElementById("fact").textContent = fact;
-}
-
 function checkAnswer(answer){
-
     if(answer === 5){
         document.getElementById("result").innerHTML =
         "✅ Dobra odpowiedź!";
@@ -170,10 +104,10 @@ function checkAnswer(answer){
         "❌ Spróbuj ponownie!";
     }
 }
-
 </script>
 
 </body>
 </html>
 ```
+
 
