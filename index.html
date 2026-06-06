@@ -1,367 +1,179 @@
+```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Koszykówka – Projekt Szkolny</title>
+<title>Koszykówka Premium</title>
 
 <style>
 body{
     margin:0;
-    font-family:Segoe UI, Arial, sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #000);
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ff8c00,#ffb347);
     color:white;
 }
 
 header{
     text-align:center;
-    padding:60px 20px;
+    padding:40px 20px;
 }
 
-.hero{
+h1{
     font-size:3rem;
 }
 
-section{
-    max-width:1000px;
-    margin:20px auto;
+.card{
+    background:white;
+    color:#333;
+    margin:20px;
     padding:20px;
-    background:rgba(255,255,255,0.06);
-    border-radius:16px;
-    backdrop-filter:blur(6px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-    transition:0.3s;
-}
-
-section:hover{
-    transform:scale(1.01);
-}
-
-img{
-    width:100%;
-    border-radius:12px;
+    border-radius:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
 button{
-    padding:12px 18px;
-    margin:5px;
+    background:#ff8c00;
+    color:white;
     border:none;
+    padding:12px 20px;
     border-radius:10px;
     cursor:pointer;
-    background:#ff6b00;
-    color:white;
+    margin:5px;
     font-size:16px;
-    transition:0.3s;
 }
 
 button:hover{
-    transform:scale(1.05);
-    background:#ff8c2a;
+    opacity:0.9;
 }
 
-#score{
-    font-size:2.5rem;
-    margin:10px 0;
+.score{
+    text-align:center;
+    font-size:2rem;
+    margin:15px 0;
 }
 
-@media(max-width:600px){
-    .hero{font-size:2rem;}
+.fact{
+    font-size:18px;
+    margin-top:10px;
+}
+
+.quiz button{
+    display:block;
+    width:100%;
+    margin-top:10px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <h1 class="hero">🏀 Koszykówka – Projekt Szkolny</h1>
-    <p>Historia, zasady, quiz i interaktywne elementy</p>
+    <h1>🏀 Koszykówka Premium</h1>
+    <p>Projekt szkolny o koszykówce</p>
 </header>
 
-<!-- HISTORY -->
-<section>
-    <h2>📜 Historia koszykówki</h2>
-    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200">
-    <p>Koszykówka została wynaleziona w 1891 roku przez Jamesa Naismitha w USA.</p>
-</section>
+<div class="card">
+    <h2>🏆 Licznik punktów</h2>
 
-<!-- RULES -->
-<section>
-    <h2>📏 Zasady gry</h2>
+    <div class="score" id="score">
+        0
+    </div>
+
+    <button onclick="addPoints(1)">+1 punkt</button>
+    <button onclick="addPoints(2)">+2 punkty</button>
+    <button onclick="addPoints(3)">+3 punkty</button>
+    <button onclick="resetScore()">Reset</button>
+</div>
+
+<div class="card">
+    <h2>📚 Ciekawostka o koszykówce</h2>
+
+    <p class="fact" id="fact">
+        Kliknij przycisk poniżej.
+    </p>
+
+    <button onclick="randomFact()">
+        Pokaż ciekawostkę
+    </button>
+</div>
+
+<div class="card quiz">
+    <h2>🎯 Quiz</h2>
+
+    <p id="question">
+        Ile graczy jednej drużyny znajduje się na boisku?
+    </p>
+
+    <button onclick="checkAnswer(3)">3</button>
+    <button onclick="checkAnswer(5)">5</button>
+    <button onclick="checkAnswer(7)">7</button>
+
+    <p id="result"></p>
+</div>
+
+<div class="card">
+    <h2>⭐ Najbardziej znani koszykarze</h2>
+
     <ul>
-        <li>Dwie drużyny po 5 zawodników</li>
-        <li>Gra trwa 4 kwarty</li>
-        <li>Punkty zdobywa się przez wrzucenie piłki do kosza</li>
-        <li>Nie wolno biegać bez kozłowania</li>
+        <li>Michael Jordan</li>
+        <li>LeBron James</li>
+        <li>Kobe Bryant</li>
+        <li>Stephen Curry</li>
     </ul>
-</section>
+</div>
 
-<!-- PLAYERS -->
-<section>
-    <h2>🏃 Pozycje zawodników</h2>
-    <ul>
-        <li>Rozgrywający (PG)</li>
-        <li>Rzucający obrońca (SG)</li>
-        <li>Niski skrzydłowy (SF)</li>
-        <li>Silny skrzydłowy (PF)</li>
-        <li>Środkowy (C)</li>
-    </ul>
-</section>
-
-<!-- SCOREBOARD -->
-<section>
-    <h2>🎮 Tablica wyników</h2>
-
-    <div id="score">0 : 0</div>
-
-    <button id="homeBtn">+1 Gospodarze</button>
-    <button id="awayBtn">+1 Goście</button>
-    <button id="resetBtn">Reset</button>
-</section>
-
-<!-- FACTS -->
-<section>
-    <h2>💡 Ciekawostki</h2>
-
-    <button id="factBtn">Losowa ciekawostka</button>
-    <p id="factText"></p>
-</section>
-
-<!-- QUIZ -->
-<section>
-    <h2>🧠 Quiz o koszykówce</h2>
-
-    <div id="quizBox"></div>
-
-    <button onclick="nextQuestion()">Następne pytanie</button>
-    <button onclick="showResult()">Pokaż wynik</button>
-
-    <p id="quizResult"></p>
-</section>
+<footer>
+    🏀 Projekt szkolny 2026
+</footer>
 
 <script>
-/* SCORE */
-let home = 0;
-let away = 0;
 
-const score = document.getElementById("score");
+let score = 0;
 
-function updateScore(){
-    score.textContent = `${home} : ${away}`;
-    localStorage.setItem("home", home);
-    localStorage.setItem("away", away);
+function addPoints(points){
+    score += points;
+    document.getElementById("score").textContent = score;
 }
 
-function loadScore(){
-    home = Number(localStorage.getItem("home")) || 0;
-    away = Number(localStorage.getItem("away")) || 0;
-    updateScore();
+function resetScore(){
+    score = 0;
+    document.getElementById("score").textContent = score;
 }
 
-document.getElementById("homeBtn").onclick = () => { home++; updateScore(); };
-document.getElementById("awayBtn").onclick = () => { away++; updateScore(); };
-document.getElementById("resetBtn").onclick = () => { home = 0; away = 0; updateScore(); };
-
-/* FACTS */
 const facts = [
-    "Kosz znajduje się na wysokości 3,05 m.",
-    "NBA powstała w 1946 roku.",
-    "Mecz trwa 4 kwarty.",
-    "Koszykówka jest grana w ponad 200 krajach.",
-    "Pierwsze piłki były zbliżone do piłki futbolowej."
+    "Koszykówkę wynalazł James Naismith w 1891 roku.",
+    "Wysokość kosza wynosi 3,05 metra.",
+    "NBA to najsłynniejsza liga koszykarska świata.",
+    "W jednej drużynie na boisku gra 5 zawodników.",
+    "Pierwsze kosze były wykonane z koszy na brzoskwinie."
 ];
 
-document.getElementById("factBtn").onclick = () => {
-    document.getElementById("factText").textContent =
-        facts[Math.floor(Math.random() * facts.length)];
-};
+function randomFact(){
+    const fact =
+    facts[Math.floor(Math.random()*facts.length)];
 
-/* QUIZ */
-const quizData = [
-    {q:"W którym roku wynaleziono koszykówkę?", a:"1891", options:["1891","1900","1946"]},
-    {q:"Ilu graczy w drużynie?", a:"5", options:["5","6","7"]},
-    {q:"Ile kwart?", a:"4", options:["2","4","3"]},
-    {q:"Wysokość kosza?", a:"3.05 m", options:["2.8 m","3.05 m","3.2 m"]},
-    {q:"Kto stworzył koszykówkę?", a:"James Naismith", options:["Jordan","Naismith","Curry"]}
-];
-
-let current = 0;
-let scoreQuiz = 0;
-
-const quizBox = document.getElementById("quizBox");
-const quizResult = document.getElementById("quizResult");
-
-function loadQuestion(){
-    let q = quizData[current];
-
-    quizBox.innerHTML = `
-        <h3>${q.q}</h3>
-        ${q.options.map(opt =>
-            `<button onclick="checkAnswer('${opt}')">${opt}</button>`
-        ).join("")}
-    `;
+    document.getElementById("fact").textContent = fact;
 }
 
 function checkAnswer(answer){
-    if(answer === quizData[current].a){
-        scoreQuiz++;
+
+    if(answer === 5){
+        document.getElementById("result").innerHTML =
+        "✅ Dobra odpowiedź!";
+    }else{
+        document.getElementById("result").innerHTML =
+        "❌ Spróbuj ponownie!";
     }
 }
 
-function nextQuestion(){
-    current++;
-    if(current < quizData.length){
-        loadQuestion();
-    } else {
-        quizBox.innerHTML = "<h3>Quiz zakończony!</h3>";
-    }
-}
-
-function showResult(){
-    quizResult.textContent = `Twój wynik: ${scoreQuiz} / ${quizData.length}`;
-}
-
-loadQuestion();
-loadScore();
 </script>
 
 </body>
 </html>
+```
 
-<body>
-
-<header>
-    <h1 class="hero">🏀 Koszykówka – Projekt Szkolny</h1>
-    <p>Historia, zasady, zawodnicy i interaktywne elementy</p>
-</header>
-
-<!-- HISTORIA -->
-<section>
-    <h2>📜 Historia koszykówki</h2>
-    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200">
-    <p>
-        Koszykówka została wynaleziona w 1891 roku przez Jamesa Naismitha w USA.
-        Szybko stała się jednym z najpopularniejszych sportów na świecie.
-    </p>
-</section>
-
-<!-- ZASADY -->
-<section>
-    <h2>📏 Zasady gry</h2>
-    <ul>
-        <li>Dwie drużyny po 5 zawodników</li>
-        <li>Punkty zdobywa się wrzucając piłkę do kosza</li>
-        <li>Mecz trwa 4 kwarty</li>
-        <li>Nie wolno biegać z piłką bez kozłowania</li>
-    </ul>
-</section>
-
-<!-- POZYCJE -->
-<section>
-    <h2>🏃 Pozycje zawodników</h2>
-    <ul>
-        <li>Rozgrywający (PG)</li>
-        <li>Rzucający obrońca (SG)</li>
-        <li>Niski skrzydłowy (SF)</li>
-        <li>Silny skrzydłowy (PF)</li>
-        <li>Środkowy (C)</li>
-    </ul>
-</section>
-
-<!-- GWIAZDY -->
-<section>
-    <h2>⭐ Najwięksi zawodnicy</h2>
-    <p>Michael Jordan, LeBron James, Kobe Bryant, Stephen Curry</p>
-</section>
-
-<!-- TABLICA WYNIKÓW -->
-<section>
-    <h2>🎮 Tablica wyników</h2>
-
-    <div id="score">0 : 0</div>
-
-    <button id="homeBtn">+1 Gospodarze</button>
-    <button id="awayBtn">+1 Goście</button>
-    <button id="resetBtn">Reset</button>
-</section>
-
-<!-- CIEKAWOSTKI -->
-<section>
-    <h2>💡 Ciekawostki o koszykówce</h2>
-
-    <button id="factBtn">Losowa ciekawostka</button>
-    <p id="factText"></p>
-</section>
-
-<!-- QUIZ -->
-<section>
-    <h2>🧠 Szybki quiz</h2>
-    <p>W którym roku wynaleziono koszykówkę?</p>
-
-    <button onclick="quiz(1891)">1891</button>
-    <button onclick="quiz(1905)">1905</button>
-    <button onclick="quiz(1946)">1946</button>
-
-    <p id="quizResult"></p>
-</section>
-
-<script>
-let home = 0;
-let away = 0;
-
-const score = document.getElementById("score");
-const factText = document.getElementById("factText");
-const quizResult = document.getElementById("quizResult");
-
-const facts = [
-    "Kosz znajduje się na wysokości 3,05 metra.",
-    "NBA powstała w 1946 roku.",
-    "Standardowy mecz trwa 4 kwarty.",
-    "Na początku nie używano kozłowania.",
-    "Koszykówka jest grana w ponad 200 krajach."
-];
-
-function updateScore(){
-    score.textContent = `${home} : ${away}`;
-    localStorage.setItem("home", home);
-    localStorage.setItem("away", away);
-}
-
-function loadScore(){
-    home = Number(localStorage.getItem("home")) || 0;
-    away = Number(localStorage.getItem("away")) || 0;
-    updateScore();
-}
-
-document.getElementById("homeBtn").onclick = () => {
-    home++;
-    updateScore();
-};
-
-document.getElementById("awayBtn").onclick = () => {
-    away++;
-    updateScore();
-};
-
-document.getElementById("resetBtn").onclick = () => {
-    home = 0;
-    away = 0;
-    updateScore();
-};
-
-document.getElementById("factBtn").onclick = () => {
-    factText.textContent = facts[Math.floor(Math.random() * facts.length)];
-};
-
-function quiz(answer){
-    if(answer === 1891){
-        quizResult.textContent = "✅ Dobrze! Koszykówka została wynaleziona w 1891 roku.";
-    } else {
-        quizResult.textContent = "❌ Źle, spróbuj ponownie!";
-    }
-}
-
-loadScore();
-</script>
-
-</body>
-</html>
