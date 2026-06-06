@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,6 +19,10 @@ header{
     padding:40px 20px;
 }
 
+h1{
+    font-size:3rem;
+}
+
 .card{
     background:white;
     color:#333;
@@ -28,86 +32,177 @@ header{
     box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
+button{
+    background:#ff8c00;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    margin:5px;
+    font-size:16px;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.score{
+    font-size:2rem;
+    text-align:center;
+    margin:10px 0;
+}
+
 .creator-code{
     position:fixed;
     bottom:10px;
     right:10px;
     background:rgba(0,0,0,0.75);
     color:white;
-    padding:8px 12px;
+    padding:10px 12px;
     border-radius:10px;
     font-size:14px;
-    font-weight:bold;
     z-index:9999;
 }
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+td,th{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+.quiz button{
+    display:block;
+    width:100%;
+}
+
 </style>
 </head>
+
 <body>
 
 <header>
-    <h1>🏀 Koszykówka Premium</h1>
-    <p>Projekt szkolny o koszykówce</p>
+<h1>🏀 Koszykówka Premium</h1>
+<p>Projekt szkolny o koszykówce</p>
 </header>
 
 <div class="card">
-    <h2>📖 Historia koszykówki</h2>
-    <p>
-        Koszykówka została wynaleziona przez Jamesa Naismitha w 1891 roku.
-        Obecnie jest jednym z najpopularniejszych sportów na świecie.
-    </p>
+<h2>📖 Historia koszykówki</h2>
+<p>
+Koszykówka została wynaleziona w 1891 roku przez Jamesa Naismitha.
+Dziś jest jednym z najpopularniejszych sportów na świecie i ma miliony fanów.
+</p>
 </div>
 
 <div class="card">
-    <h2>🏆 Licznik punktów</h2>
-    <h1 id="score">0</h1>
+<h2>🏆 Licznik punktów</h2>
 
-    <button onclick="addPoints(1)">+1</button>
-    <button onclick="addPoints(2)">+2</button>
-    <button onclick="addPoints(3)">+3</button>
-    <button onclick="resetScore()">Reset</button>
+<div class="score" id="score">0</div>
+
+<button onclick="add(1)">+1 punkt</button>
+<button onclick="add(2)">+2 punkty</button>
+<button onclick="add(3)">+3 punkty</button>
+<button onclick="reset()">Reset</button>
+</div>
+
+<div class="card quiz">
+<h2>🎯 Quiz</h2>
+
+<p>Ilu zawodników gra w jednej drużynie na boisku?</p>
+
+<button onclick="check(3)">3</button>
+<button onclick="check(5)">5</button>
+<button onclick="check(7)">7</button>
+
+<p id="result"></p>
 </div>
 
 <div class="card">
-    <h2>🎯 Quiz</h2>
-    <p>Ilu zawodników jednej drużyny gra na boisku?</p>
+<h2>⭐ Znani koszykarze</h2>
+<ul>
+<li>Michael Jordan</li>
+<li>LeBron James</li>
+<li>Kobe Bryant</li>
+<li>Stephen Curry</li>
+</ul>
+</div>
 
-    <button onclick="checkAnswer(3)">3</button>
-    <button onclick="checkAnswer(5)">5</button>
-    <button onclick="checkAnswer(7)">7</button>
+<div class="card">
+<h2>🏆 Tabela osiągnięć NBA</h2>
 
-    <p id="result"></p>
+<table>
+<tr><th>Zawodnik</th><th>Tytuły</th></tr>
+<tr><td>Michael Jordan</td><td>6</td></tr>
+<tr><td>LeBron James</td><td>4</td></tr>
+<tr><td>Kobe Bryant</td><td>5</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>🎲 Losowy fakt</h2>
+<p id="fact">Kliknij przycisk</p>
+<button onclick="fact()">Pokaż fakt</button>
+</div>
+
+<div class="card">
+<h2>📋 Zasady gry</h2>
+<ul>
+<li>Na boisku gra 5 zawodników</li>
+<li>Rzut za 3 punkty = 3 punkty</li>
+<li>Rzut za 2 punkty = 2 punkty</li>
+<li>Rzut wolny = 1 punkt</li>
+<li>Mecz trwa 4 kwarty</li>
+</ul>
 </div>
 
 <div class="creator-code">
-    🎮 Kod autora Fortnite: 1MMS
+🎮 Kod autora Fortnite: 1MMS
 </div>
 
 <script>
+
 let score = 0;
 
-function addPoints(points){
-    score += points;
-    document.getElementById("score").textContent = score;
+function add(x){
+    score += x;
+    document.getElementById("score").innerText = score;
 }
 
-function resetScore(){
+function reset(){
     score = 0;
-    document.getElementById("score").textContent = score;
+    document.getElementById("score").innerText = score;
 }
 
-function checkAnswer(answer){
-    if(answer === 5){
-        document.getElementById("result").innerHTML =
-        "✅ Dobra odpowiedź!";
-    }else{
-        document.getElementById("result").innerHTML =
-        "❌ Spróbuj ponownie!";
+function check(a){
+    if(a === 5){
+        document.getElementById("result").innerText = "✅ Dobra odpowiedź!";
+    } else {
+        document.getElementById("result").innerText = "❌ Spróbuj ponownie!";
     }
 }
+
+const facts = [
+"Koszykówkę wymyślił James Naismith w 1891 roku.",
+"NBA została założona w 1946 roku.",
+"Wysokość kosza to 3,05 m.",
+"Każda drużyna ma 5 zawodników na boisku.",
+"Najwięcej punktów w meczu NBA: 100 Wilta Chamberlaina."
+];
+
+function fact(){
+    document.getElementById("fact").innerText =
+    facts[Math.floor(Math.random()*facts.length)];
+}
+
 </script>
 
 </body>
 </html>
-```
+
 
 
